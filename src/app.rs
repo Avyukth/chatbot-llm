@@ -22,7 +22,28 @@ pub fn App(cx: Scope) -> impl IntoView {
         });
         converse(cx, conversations.clone());
     });
-    create_effect
+    
+    create_effect(cx, move |_| {
+        if let Some(_) = send.input().get() {
+            let model_message = Message {
+                text: String::from("..."),
+                user: false,
+            };
+
+            set_conversation.update(move |c| {
+                c.messages.push(model_message);
+            });
+        }
+    });
+
+        create_effect(cx, move |_| {
+        if let Some(Ok(response)) = send.value().get() {
+            set_conversation.update(move |c| {
+                c.messages.last_mut().unwrap().text = response;
+            });
+        }
+    });
+
 
     view! { cx,
         // injects a stylesheet into the document <head>
