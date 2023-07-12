@@ -47,16 +47,12 @@ pub fn App(cx: Scope) -> impl IntoView {
         }
     });
 
-
     view! { cx,
-        // injects a stylesheet into the document <head>
-        // id=leptos means cargo-leptos will hot-reload this stylesheet
         <Stylesheet id="leptos" href="/pkg/leptos_start.css"/>
 
         // sets the document title
-        <Title text="Welcome to Testy Chat"/>
+        <Title text="Rusty Llama"/>
         <ChatArea conversation/>
-        <TypeArea send />
-
+        <TypeArea send/>
     }
 }
