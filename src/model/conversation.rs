@@ -5,7 +5,6 @@ use serde::{Serialize, Deserialize};
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct Conversation {
     pub messages: Vec<Message>
-    
 }
 
 
