@@ -18,7 +18,7 @@ pub fn App(cx: Scope) -> impl IntoView {
             user : true,
         };
         set_conversions.update(move |c|{
-            c.message.push(user_message);
+            c.messages.push(user_message);
         });
     });
     view! { cx,

@@ -17,21 +17,24 @@ pub async fn converse(cx: Scope, prompt: Conversation) -> Result<String, ServerF
     use llm::KnownModel;
     let character_name = "### Assistant";
     let user_name = "### Human";
-    let persona = "A chat between a human and an assistant";
+    let persona = "A chat between a human and an assistant.";
     let mut history = format!(
         "{character_name}:Hello - How may I help you today?\n\
         {user_name}:What is the capital of France?\n\
         {character_name}:Paris is the capital of France.\n"
     );
-    
-    FOR message in prompt.messages.into_iter() {
-        let msg  = message.text;
+
+    for message in prompt.messages.into_iter() {
+        let msg = message.text;
         let curr_line = if message.user {
-            format!("{character_name}:{msg}\n", character_name=character_name, msg=msg)
+            format!("{character_name}:{msg}\n")
         } else {
-           format!("{user_name}:{msg}\n", user_name=user_name, msg=msg)
-        }; 
+            format!("{user_name}:{msg}\n")
+        };
+
+        history.push_str(&curr_line);
     }
+
 
     let mut res = String::new();
     let mut rng = rand::thread_rng();
