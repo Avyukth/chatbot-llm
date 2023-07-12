@@ -18,4 +18,3 @@ pub fn TypeArea(cx: Scope, send: Action<String, Result<String, ServerFnError>>) 
         </div>
     }
 }
-}
