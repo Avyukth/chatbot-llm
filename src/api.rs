@@ -61,6 +61,8 @@ pub async fn converse(cx: Scope, prompt: Conversation) -> Result<String, ServerF
 
     Ok(res)
 }
+
+
 cfg_if! {
     if #[cfg(feature = "ssr")] {
     use std::convert::Infallible;
