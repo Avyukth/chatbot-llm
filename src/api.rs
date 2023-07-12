@@ -1,6 +1,6 @@
 use leptos::*;
-
-use crate::model::Conversation;
+use cfg_if::cfg_if;
+use crate::model::conversation::Conversation;
 
 
 #[server(Converse "/api")]
@@ -38,14 +38,15 @@ pub async fn converse(cx: Scope, prompt: Conversation) -> Result<String, ServerF
 
     let mut res = String::new();
     let mut rng = rand::thread_rng();
-    let mut buff = String::new();
+    let mut buf = String::new();
 
     let mut session = model.start_session(Default::default());
-    session.infer(
-        model.as_ref(),
-        &mut rng,
-        &mut buff,
-        &llm::InferenceRequest {
+    // dbg!(format!("{persona}\n{history}\n{character_name}:"));
+    session
+        .infer(
+            model.as_ref(),
+            &mut rng,
+            &llm::InferenceRequest {
                 prompt: format!("{persona}\n{history}\n{character_name}:")
                     .as_str()
                     .into(),
@@ -60,7 +61,6 @@ pub async fn converse(cx: Scope, prompt: Conversation) -> Result<String, ServerF
 
     Ok(res)
 }
-
 cfg_if! {
     if #[cfg(feature = "ssr")] {
     use std::convert::Infallible;
