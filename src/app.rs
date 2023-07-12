@@ -12,15 +12,15 @@ pub fn App(cx: Scope) -> impl IntoView {
 
     let (conversions,set_conversions) = create_signal(cx, Conversation::new());
     
-    let send=  create_action(cx, move |new_message: &String|{
-        let user_message = Message{
-            text: new_message.text.clone(),
-            user : true,
+    let send = create_action(cx, move |new_message: &String| {
+        let user_message = Message {
+            text: new_message.clone(),
+            user: true,
         };
-        set_conversions.update(move |c|{
+        set_conversation.update(move |c| {
             c.messages.push(user_message);
         });
-        converse(cx, conversations.clone());
+        converse(cx, conversation.get())
     });
     
     create_effect(cx, move |_| {
