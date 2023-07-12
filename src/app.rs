@@ -20,7 +20,10 @@ pub fn App(cx: Scope) -> impl IntoView {
         set_conversions.update(move |c|{
             c.messages.push(user_message);
         });
+        converse(cx, conversations.clone());
     });
+    create_effect
+
     view! { cx,
         // injects a stylesheet into the document <head>
         // id=leptos means cargo-leptos will hot-reload this stylesheet
